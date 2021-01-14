@@ -5,6 +5,8 @@
 // button
 const int btm = A4;
 
+const int beep = 9;
+
 // encoder
 const int esw = A2, ea = A0, eb = A1;
 
@@ -45,7 +47,7 @@ void setup() {
     lcd.print(" ");
     lcd.clear();
     lcd.print(" Sparkle    LCD2USB");
-    lcd.setCursor(8, 1);
+    lcd.setCursor(4, 1);
     lcd.print("cupinkie.com");
     lcd.setCursor(0, 2);
     lcd.print("3D Pinter    LCD2004");
