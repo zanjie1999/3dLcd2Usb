@@ -44,8 +44,8 @@ void setup() {
     pinMode(backlightLed, OUTPUT);
     lcd.begin(20, 4);
     led(1);
-    lcd.print(" ");
-    lcd.clear();
+    // lcd.print(" ");
+    // lcd.clear();
     lcd.print(" Sparkle    LCD2USB");
     lcd.setCursor(4, 1);
     lcd.print("cupinkie.com");
@@ -119,7 +119,7 @@ void loop() {
         }
     }
 
-    if (millis() > lastReadEncoderTime + 6) {
+    if (millis() > lastReadEncoderTime + 5) {
         // 5ms = 200Hz
         boolean readEa = digitalRead(ea);
         boolean readEb = digitalRead(eb);
