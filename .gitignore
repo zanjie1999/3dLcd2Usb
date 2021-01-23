@@ -3,3 +3,8 @@
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
+monitor/monitor
+monitor/monitor.exe
+monitor/monitor-windows.exe
+monitor/monitor-linux
+monitor/monitor-darwin
