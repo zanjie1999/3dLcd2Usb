@@ -38,6 +38,9 @@ void led(int isOn) {
 }
 
 void setup() {
+    // 实际上是115200
+    // 使用arduino编译的话填什么就是什么
+    Serial.begin(230400);
     pinMode(btm, INPUT_PULLUP);
     pinMode(esw, INPUT_PULLUP);
     pinMode(ea, INPUT_PULLUP);
@@ -55,16 +58,17 @@ void setup() {
     lcd.setCursor(0, 3);
     lcd.print("Check Serial Port...");
     lcd.setCursor(0, 0);
-    // 实际上是115200
-    // 使用arduino编译的话填什么就是什么
-    Serial.begin(230400);
     lastEa = digitalRead(ea);
+    Serial.println("Sparkle");
 }
 
 void loop() {
     if (Serial.available() > 0) {
         // something to read
         lastRead = Serial.read();
+        if (lastMillis == -1) {
+          led(1);
+        }
         lastMillis = millis();
         if (clearMsg) {
             lcd.clear();
