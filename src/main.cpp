@@ -25,6 +25,7 @@ int num = 0;
 boolean ovf = 0;
 boolean lastEa = 1;
 long lastReadEncoderTime = 0;
+long lastMillis = 0;
 
 void led(int isOn) {
     if (isOn) {
@@ -64,6 +65,7 @@ void loop() {
     if (Serial.available() > 0) {
         // something to read
         lastRead = Serial.read();
+        lastMillis = millis();
         if (clearMsg) {
             lcd.clear();
             clearMsg = 0;
@@ -135,5 +137,13 @@ void loop() {
         }
         lastEa = readEa;
         lastReadEncoderTime = millis();
+    }
+
+    if (lastMillis != -1 && millis() > lastMillis + 30000) {
+      // time out clear lcd
+      lcd.clear();
+      clearMsg = 0;
+      led(0);
+      lastMillis = -1;
     }
 }
