@@ -54,7 +54,9 @@ void setup() {
     lcd.setCursor(0, 3);
     lcd.print("Check Serial Port...");
     lcd.setCursor(0, 0);
-    Serial.begin(115200);
+    // 实际上是115200
+    // 使用arduino编译的话填什么就是什么
+    Serial.begin(230400);
     lastEa = digitalRead(ea);
 }
 
