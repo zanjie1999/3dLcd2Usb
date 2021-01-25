@@ -7,10 +7,8 @@
 -----
 由于使用的是国产的单片机，坑很多，因此请严格按照本md来操作  
 首先在你喜欢的编辑器比如VsCode安装好PlatfromIO的插件  
-先在插件的Boards页面搜索lgt8f328p把支持库安装好
-再到 [官网](http://www.lgtic.com/downloads/) 底部找到 LGT8FX8D/P系列Arduino硬件支持包 进行下载  
-并且将压缩包中的 hardware\LGT\avr 文件夹里面的内容替换到你的系统用户文件夹下的.platformio/packages/framework-lgt8fx  
-然后就可以直接编译上传了
+按照说明把 [支持库](https://github.com/zanjie1999/lgt8f328-pio) 放到指定目录并重启编辑器  
+然后就可以直接编译上传了  
 在PlatfromIO中使用Serial.begin时传入的波特率是实际的一半，比如要使用115200，那么就需要 Serial.begin(230400);
 
 ## 上位机
@@ -23,4 +21,5 @@
 顺时针旋转回传+
 逆时针旋转回传-
   
-在monitor目录下有一个使用go写的上位机
+在monitor目录下有一个使用go写的上位机  
+下载点右边的Releases
