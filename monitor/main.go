@@ -116,9 +116,9 @@ func NetworkSpeed(s float64) (float64, float64) {
 	return sendF64, recvF64
 }
 
-// hh:mm:ss
+// h:mm:ss
 func TimeHMS() string {
-	return time.Now().Format("03:04:05")
+	return time.Now().Format("3:04:05")
 }
 
 // 寻找串口并初始化
@@ -149,7 +149,7 @@ func screen1() string {
 	} else {
 		out += fmt.Sprintf("%-12s", fmt.Sprintf("Cpu:%.3f%%", cpuPre))
 	}
-	out += TimeHMS()
+	out += fmt.Sprintf("%8s", TimeHMS())
 	out += "\n"
 	send, recv := NetworkSpeed(0.5)
 	out += fmt.Sprintf("%-11s", fmt.Sprintf("Men:%.3fG", VMemUsed()))
