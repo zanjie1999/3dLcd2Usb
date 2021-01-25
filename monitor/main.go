@@ -5,18 +5,18 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"runtime"
 	"strings"
 	"time"
-	"log"
-	"fmt"
 
+	"github.com/albenik/go-serial/v2"
+	"github.com/albenik/go-serial/v2/enumerator"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/net"
-	"github.com/albenik/go-serial/v2"
-	"github.com/albenik/go-serial/v2/enumerator"
 )
 
 var lastSent uint64 = 0
@@ -48,7 +48,7 @@ func main() {
 					if err != nil {
 						log.Fatal(err)
 					}
-					if n!=0 {
+					if n != 0 {
 						log.Printf("%q", buf[0])
 					}
 				}
@@ -134,7 +134,7 @@ func findSerialPort() string {
 		if port.IsUSB && port.VID == serialVid && port.PID == serialPid {
 			return port.Name
 		}
-	} 
+	}
 	return ""
 }
 
