@@ -1,3 +1,7 @@
+// 3D LCD to USB 下位机
+// 2021/01/18
+// v1.1
+
 #include <Arduino.h>
 #include <Wire.h>
 #include <LiquidCrystal.h>

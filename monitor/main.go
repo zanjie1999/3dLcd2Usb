@@ -1,6 +1,6 @@
 // 3D LCD to USB 上位机
 // 2021/01/19
-// v1
+// v1.1
 
 package main
 
