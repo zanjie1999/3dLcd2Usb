@@ -38,9 +38,9 @@ void led(int isOn) {
 }
 
 void setup() {
-    // 实际上是115200
+    // 实际波特率x2
     // 使用arduino编译的话填什么就是什么
-    Serial.begin(230400);
+    Serial.begin(19200);
     pinMode(btm, INPUT_PULLUP);
     pinMode(esw, INPUT_PULLUP);
     pinMode(ea, INPUT_PULLUP);

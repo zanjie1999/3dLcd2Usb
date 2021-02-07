@@ -9,5 +9,6 @@ require (
 	github.com/shirou/gopsutil v3.20.12+incompatible
 	github.com/tarm/serial v0.0.0-20180830185346-98f6abe2eb07 // indirect
 	go.bug.st/serial v1.1.1 // indirect
+	golang.org/x/exp v0.0.0-20201229011636-eab1b5eb1a03
 	golang.org/x/sys v0.0.0-20210113181707-4bcb84eeeb78 // indirect
 )

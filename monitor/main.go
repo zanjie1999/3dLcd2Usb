@@ -17,6 +17,7 @@ import (
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
 	"github.com/shirou/gopsutil/net"
+	//"golang.org/x/exp/shiny/driver/internal/win32"
 )
 
 var lastSent uint64 = 0
@@ -31,25 +32,28 @@ func main() {
 	for {
 		portName := findSerialPort()
 		if portName != "" {
-			port, err := serial.Open(portName, serial.WithBaudrate(115200))
+			port, err := serial.Open(portName, serial.WithBaudrate(9600))
 			if err != nil {
 				log.Fatal(err)
 			} else {
 				log.Println(portName)
 				for {
-					out := screen1()
+					out := Screen1()
 					// fmt.Println(out)
 					n, err := port.Write([]byte(out))
 					if err != nil {
 						log.Fatal(err)
+						break
 					}
 					buf := make([]byte, 128)
 					n, err = port.Read(buf)
 					if err != nil {
 						log.Fatal(err)
+						break
 					}
 					if n != 0 {
 						log.Printf("%q", buf[0])
+						Button(string(buf[0]))
 					}
 				}
 			}
@@ -78,6 +82,7 @@ func SMemUsed() float64 {
 		if lastVRAMUse == 0 {
 			VMemUsed()
 		}
+		// fmt.Println(memInfo.Used, lastVRAMUse, memInfo.Used-lastVRAMUse)
 		return float64(memInfo.Used-lastVRAMUse) / 1024 / 1024 / 1024
 	}
 	return float64(memInfo.Used) / 1024 / 1024 / 1024
@@ -97,7 +102,13 @@ func NetworkSpeed(s float64) (float64, float64) {
 	var recv uint64 = 0
 	if len(netInfos) > 1 {
 		for _, i := range netInfos {
-			if strings.HasPrefix(i.Name, "en") {
+			if runtime.GOOS == "windows" {
+				if strings.HasPrefix(i.Name, "本地连接") {
+					sent = i.BytesSent
+					recv = i.BytesRecv
+					break
+				}
+			} else if strings.HasPrefix(i.Name, "en") {
 				sent = i.BytesSent
 				recv = i.BytesRecv
 				break
@@ -139,10 +150,10 @@ func findSerialPort() string {
 }
 
 // 第1屏
-func screen1() string {
+func Screen1() string {
 	cpuPre := CPUPercent()
 	out := "["
-	out += fmt.Sprintf("%-18s", cpuBar[:int(cpuPre*0.18)])
+	out += fmt.Sprintf("%-18s", cpuBar[:int(cpuPre*0.19)])
 	out += "]\n"
 	if cpuPre >= 100 {
 		out += fmt.Sprintf("%-12s", fmt.Sprintf("Cpu:%.2f%%", cpuPre))
@@ -159,4 +170,21 @@ func screen1() string {
 	out += fmt.Sprintf("%9s", fmt.Sprintf("v:%.3f", recv))
 	out += "\r"
 	return out
+}
+
+func Button(in string) {
+	switch in {
+	case "1":
+		if runtime.GOOS == "windows" {
+			// 关闭屏幕
+			//win32.SendMessage(-1, 0x0112, 0xF170, 2)
+		}
+	case "0":
+
+	case "+":
+
+	case "-":
+
+	default:
+	}
 }
