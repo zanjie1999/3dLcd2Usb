@@ -34,21 +34,21 @@ func main() {
 		if portName != "" {
 			port, err := serial.Open(portName, serial.WithBaudrate(9600))
 			if err != nil {
-				log.Fatal(err)
+				log.Print(err)
 			} else {
-				log.Println(portName)
+				log.Print(portName)
 				for {
 					out := Screen1()
 					// fmt.Println(out)
 					n, err := port.Write([]byte(out))
 					if err != nil {
-						log.Fatal(err)
+						log.Print(err)
 						break
 					}
 					buf := make([]byte, 128)
 					n, err = port.Read(buf)
 					if err != nil {
-						log.Fatal(err)
+						log.Print(err)
 						break
 					}
 					if n != 0 {
@@ -58,6 +58,7 @@ func main() {
 				}
 			}
 		}
+		time。sleep(time.Second * 10)
 	}
 }
 
@@ -136,10 +137,10 @@ func TimeHMS() string {
 func findSerialPort() string {
 	ports, err := enumerator.GetDetailedPortsList()
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 	if len(ports) == 0 {
-		log.Fatal("No serial ports found!")
+		log.Print("No serial ports found!")
 	}
 	for _, port := range ports {
 		if port.IsUSB && port.VID == serialVid && port.PID == serialPid {
@@ -157,17 +158,27 @@ func Screen1() string {
 	out += "]\n"
 	if cpuPre >= 100 {
 		out += fmt.Sprintf("%-12s", fmt.Sprintf("Cpu:%.2f%%", cpuPre))
-	} else {
+	} else if cpuPre >= 10 {
 		out += fmt.Sprintf("%-12s", fmt.Sprintf("Cpu:%.3f%%", cpuPre))
+	} else {
+		out += fmt.Sprintf("%-12s", fmt.Sprintf("Cpu: %.3f%%", cpuPre))
 	}
 	out += fmt.Sprintf("%8s", TimeHMS())
 	out += "\n"
 	send, recv := NetworkSpeed(0.5)
 	out += fmt.Sprintf("%-11s", fmt.Sprintf("Men:%.3fG", VMemUsed()))
-	out += fmt.Sprintf("%9s", fmt.Sprintf("^:%.3f", send))
+	if send >= 10 {
+		out += fmt.Sprintf("%9s", fmt.Sprintf("^:%.3f", send))
+	} else {
+		out += fmt.Sprintf("%9s", fmt.Sprintf("^: %.3f", send))
+	}
 	out += "\n"
 	out += fmt.Sprintf("%-11s", fmt.Sprintf("Swp:%.3fG", SMemUsed()))
-	out += fmt.Sprintf("%9s", fmt.Sprintf("v:%.3f", recv))
+	if recv >= 10 {
+		out += fmt.Sprintf("%9s", fmt.Sprintf("v:%.3f", recv))
+	} else {
+		out += fmt.Sprintf("%9s", fmt.Sprintf("v: %.3f", recv))
+	}
 	out += "\r"
 	return out
 }
