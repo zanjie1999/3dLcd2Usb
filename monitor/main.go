@@ -58,7 +58,7 @@ func main() {
 				}
 			}
 		}
-		time。sleep(time.Second * 10)
+		time.sleep(time.Second * 10)
 	}
 }
 
