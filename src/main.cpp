@@ -56,7 +56,7 @@ void setup() {
     // lcd.clear();
     lcd.print(" Sparkle    LCD2USB");
     lcd.setCursor(4, 1);
-    lcd.print("cupinkie.com");
+    lcd.print("zyyme.com");
     lcd.setCursor(0, 2);
     lcd.print("3D Pinter    LCD2004");
     lcd.setCursor(0, 3);
